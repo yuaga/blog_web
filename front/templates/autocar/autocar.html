@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+汽车新闻
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/autocar.min.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="news-box">
+                <ul class="news-list-group">
+                    {% for news in newses %}
+                        <li>
+                            <div class="photo-box">
+                                <img src="{{ news.thumbnail }}"
+                                     alt="">
+                            </div>
+                            <div class="news-detail">
+                                <p class="news-title"><a href="#">{{ news.title }}</a></p>
+                                <p class="news-content">{{ news.desc }}</p>
+                                <p class="more">
+                                    <span class="category">{{ news.category.name }}</span>
+                                    <span class="create-time">{{ news.pub_time }}</span>
+                                    <span class="author">{{ news.author.username }}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+{#                <div class="load-more-group">#}
+{#                    <button class="load-more" id="load-more-btn">查看更多</button>#}
+{#                </div>#}
+            </div>
+        </div>
+    </div>
+{#    <div class="footer">#}
+{#        <div class="dream">#}
+{#            <p>专注于个人兴趣爱好</p>#}
+{#        </div>#}
+{#        <div class="logo-box">#}
+{#            <p>Bokebook</p>#}
+{#        </div>#}
+{#    </div>#}
+{% endblock %}

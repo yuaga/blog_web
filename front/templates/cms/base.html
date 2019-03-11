@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bokebook | CMS后台管理中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/Ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/AdminLTE.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/skins/_all-skins.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
+    <script src="{% static 'adminlte/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'adminlte/bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert.min.js' %}"></script>
+    <script src="{% static 'js/ajax.min.js' %}"></script>
+    <script src="{% static 'js/alert.min.js' %}"></script>
+    <script src="{% static 'js/message.min.js' %}"></script>
+    <script src="{% static 'adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'adminlte/dist/js/adminlte.min.js' %}"></script>
+    <link rel="shortcut icon" href="#"/>
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 下面是CMS页面顶部代码 -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>CMS</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>CMS</b>后台发布中心</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only"></span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="https://tse3-mm.cn.bing.net/th?id=OIP.1XeSHiOCQ6xdU9SdzkgAKQHaHd&w=197&h=198&c=7&o=5&dpr=1.25&pid=1.7"
+                                 class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ request.user.username }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="https://tse3-mm.cn.bing.net/th?id=OIP.1XeSHiOCQ6xdU9SdzkgAKQHaHd&w=197&h=198&c=7&o=5&dpr=1.25&pid=1.7"
+                                     class="img-circle" alt="User Image">
+
+                                <p>
+                                    <small>这里面装着介绍</small>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{% url 'news:personal_space' %}" class="btn btn-default btn-flat">个人中心</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{% url 'login:logout' %}" class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- CMS页面左侧可隐藏代码 -->
+    <aside class="main-sidebar">
+
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="active">
+                <a href="{% url 'cms:index' %}"><i class="fa fa-home"></i><span>首页</span></a>
+            </li>
+
+            {# 下面对权限进行限定，如果有权限则可以看到并能操作，这个perms是settings中的auth上下文处理器返回的 #}
+{#            {% if perms.news.change_news %}#}
+                <li>
+                    <a href="{% url 'cms:write_news'%}"><i class="fa fa-pencil-square-o"></i><span>发布新闻</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'cms:news_category' %}"><i class="fa fa-tag"></i><span>新闻分类</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'cms:news_manage' %}"><i class="fa fa-list"></i><span>新闻管理</span></a>
+                </li>
+{#            {% endif %}#}
+{#            {% if perms.news.delete_comment %}#}
+                {# 管理评论功能还为实现 留空待实现#}
+{#            {% endif %}#}
+
+{#            {% if user.is_superuser %}#}
+                <li>
+                    <a href="{% url 'cms:staff_manage' %}"><i class="fa fa-list"></i><span>员工管理</span></a>
+                </li>
+{#            {% endif %}#}
+            <li>
+                <a href="{% url 'index' %}" target="_blank"><i class="fa fa-home"></i><span>返回博客首页</span></a>
+            </li>
+        </ul>
+    </aside>
+    <!-- CMS主题部分代码 -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            {% block content-header %}
+
+            {% endblock %}
+        </section>
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+    </div>
+    <!-- CMS主题部分底部代码-->
+    <footer class="main-footer">
+        <span>欢迎来到CMS后台发布中心</span>
+    </footer>
+</div>
+</body>
+</html>

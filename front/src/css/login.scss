@@ -1,0 +1,68 @@
+@import "header.scss";
+@import "body.scss";
+body{
+  background-image: url("http://uploadfile.bizhizu.cn/2014/0625/20140625025431409.jpg");
+   background-size:cover;
+}
+.header{
+  opacity:0.5;
+}
+.main {
+  width: 100%;
+
+  margin-top: 80px;
+
+  .wrapper {
+
+    margin: 0 auto;
+
+    .login-box {
+      margin: 0 auto;
+      width: 264px;
+
+      .title {
+        text-align: center;
+        font-size: 25px;
+      }
+
+      .form-group {
+        .form-control {
+          margin-top: 20px;
+          width: 264px;
+          height: 40px;
+          //border: none;
+          border-radius: 3px;
+          box-sizing: border-box;
+          padding: 5px;
+          outline: none;
+          border: 1px solid #dcdcdc;
+        }
+      }
+
+      .checkbox {
+        margin-top: 15px;
+        font-size: 14px;
+        width: 100px;
+        height: 20px;
+        line-height: 20px;
+      }
+
+      .login-btn {
+        margin-top: 20px;
+        margin-left: 82px;
+
+        width: 100px;
+        height: 40px;
+        font-size: 14px;
+        border-radius: 5px;
+        outline: none;
+        background: cornflowerblue;
+        cursor: pointer;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

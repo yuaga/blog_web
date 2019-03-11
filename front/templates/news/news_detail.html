@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% block title %}
+    Bokebook |新闻详情
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/news_detail.min.css' %}">
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+    <script src="{% static 'js/message.min.js' %}"></script>
+    <script src="{% static 'js/comment.js' %}"></script>
+    <script id="comment-list" type="text/html">
+        {% verbatim %}
+        <li>
+            <div class="comment-title">
+
+                <img src="https://tse3-mm.cn.bing.net/th?id=OIP.1XeSHiOCQ6xdU9SdzkgAKQHaHd&w=197&h=198&c=7&o=5&dpr=1.25&pid=1.7"
+                     alt="" class="img">
+
+                <span class="author">{{ comment.comment_author.username }}</span>
+                <span class="pub-time">{{ comment.pub_time|dateFormat }}</span>
+            </div>
+            <p class="comment-content">{{ comment.comment_content }}</p>
+        </li>
+        {% endverbatim %}
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="news-wrapper">
+                <div class="news-box">
+                    <h1 class="news-title">{{ news.title }}</h1>
+                    <div class="news-info">
+                        <span class="category">{{ news.category.name }}</span>
+                        <span class="create-time">{{ news.pub_time }}</span>
+                        <span class="author">{{ news.author.username }}</span>
+                    </div>
+                    <article class="news-detail">
+                        {{ news.content|safe }}
+                    </article>
+                </div>
+
+                <div class="comment-box">
+                    <h3 class="title">立即评论:</h3>
+                    {% if user.is_authenticated %}
+                        <div class="submit-btn-group">
+                            <textarea id="comment22" class="comment" placeholder="最多评论150字"></textarea>
+                            <button class="submit-btn" id="comment-submit-btn" data-news-id="{{ news.id }}">提交评论
+                            </button>
+                        </div>
+                    {% else %}
+                        <textarea name="comment" class="comment" placeholder="登录后才能评论呀~~" readonly></textarea>
+                    {% endif %}
+                </div>
+
+
+                <ul class="comment-item">
+                    {#  下面的comments是模型中定义的related_name, 被定义外键的News模型，News的实列都可以通过news.comments获取当前模型的字段 #}
+                    {# 下面的for循环代码就是拿到Comment中的所有字段，news.comments是一个queryset对象，不能迭代，通过all就可以获取所有可迭代数据了，all后面不能加圆括号 #}
+                    {% for comment in news.comments.all %}
+{#                    {% for comment in comments %}#}
+                        <li>
+                            <div class="comment-title">
+
+                                <img src="https://tse3-mm.cn.bing.net/th?id=OIP.1XeSHiOCQ6xdU9SdzkgAKQHaHd&w=197&h=198&c=7&o=5&dpr=1.25&pid=1.7"
+                                     alt="" class="img">
+
+                                <span class="author">{{ comment.comment_author.username }}</span>
+                                <span class="pub-time">{{ comment.pub_time }}</span>
+                            </div>
+                            <p class="comment-content">{{ comment.comment_content }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

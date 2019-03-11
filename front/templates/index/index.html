@@ -1,0 +1,155 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Boke首页
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.min.css' %}">
+
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+    <script src="{% static 'js/index.min.js' %}"></script>
+    <script src="{% static 'js/web_comment.js' %}"></script>
+    <script id="news-list" type="text/html">
+        {% verbatim %}
+        {{ each newses news index }}
+        <li>
+            <div class="photo-box">
+                <img src="{{ news.thumbnail }}" alt="">
+            </div>
+            <div class="news-detail">
+                <p class="news-title"><a href="/apps/news/{{ news.id }}/">{{ news.title }}</a></p>
+                <p class="news-content">{{ news.desc }}</p>
+                <p class="more">
+                    <span class="category">{{ news.category.name }}</span>
+                    <span class="create-time">{{ news.pub_time|dateFormat }}</span>
+                    <span class="author">{{ news.author.username }}</span>
+                </p>
+            </div>
+        </li>
+        {{ /each }}
+        {% endverbatim %}
+    </script>
+    <script id="web-comment-list" type="text/html">
+        {% verbatim %}
+        <li>
+            <p class="comment-detail">{{ web_comment.author.username }}：{{ web_comment.comment }}</p>
+        </li>
+        {% endverbatim %}
+    </script>
+    <style type="text/css">
+        .message-header {
+            height: 40px;
+        }
+
+        .message-body {
+            width: 288px;
+            overflow: hidden;
+        }
+
+        .message-body1 {
+            height: 420px;
+            width: 300px;
+            overflow: auto;
+            font-size: 14px;
+        }
+
+        .comment-detail {
+            border-bottom: 1px solid #5e5e5e;
+        }
+
+        .comment-box {
+            position: absolute;
+            width: 300px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .comment-input {
+            height: 28px;
+            width: 220px;
+            float: left;
+            margin: 5px 5px;
+        }
+
+        .comment-btn {
+            height: 31px;
+            float: right;
+            margin: 5px 5px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="news-box">
+                <ul class="news-list-group">
+                    {% for news in newses %}
+                        <li>
+                            <div class="photo-box">
+                                <img src="{{ news.thumbnail }}"
+                                     alt="">
+                            </div>
+                            <div class="news-detail">
+                                <p class="news-title">
+                                    <a href="{% url 'news:news_detail' news_id=news.id %}">{{ news.title }}</a>
+                                </p>
+                                <p class="news-content">{{ news.desc }}</p>
+                                <p class="more">
+                                    <span class="category">{{ news.category.name }}</span>
+                                    <span class="create-time">{{ news.pub_time }}</span>
+                                    <span class="author">{{ news.author.username }}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+                <div class="load-more-group">
+                    <button class="load-more" id="load-more-btn">查看更多</button>
+                </div>
+            </div>
+            <div class="side-bar" style="background: gainsboro;position: relative">
+                <div class="message-box">
+                    <div class="message-header">
+                        <span>网站交流室</span>
+                    </div>
+                    <div class="message-body" id="comment110">
+                        <div class="message-body1">
+                            <ul class="web-comment-item">
+                                {% for web_comment in web_comments %}
+                                    <li>
+                                        <p class="comment-detail">{{ web_comment.author.username }}：{{ web_comment.comment }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% if user.is_authenticated %}
+                    <div class="comment-box">
+                        <input class="comment-input" placeholder="请评论一下这个网站吧！" id="web_comment1">
+                        <button type="submit" class="comment-btn" id="comment-btn1" data-id="{{ user.id }}">发送</button>
+                    </div>
+                {% else %}
+                    <div class="comment-box">
+                        <input class="comment-input" placeholder="登录才能发言哦！" id="web_comment1">
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <div class="dream">
+            <p>专注于个人兴趣爱好</p>
+        </div>
+        <div class="logo-box">
+            <p>Bokebook</p>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'cms/base.html' %}
+
+{% block head %}
+    <script src="{% static 'js/addcategory.min.js' %}"></script>
+{% endblock %}
+{% block content-header %}
+    <h1>新闻分类</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                {% if user.is_superuser %}
+                    <div class="box-header">
+                        <button class="btn btn-primary" id="add-btn">添加分类</button>
+                    </div>
+                {% else %}
+                    <div class="box-header">
+{#                    <button class="btn btn-primary" id="add-btn" style="display: none;">添加分类</button>#}
+                    <span class="btn btn-primary">添加分类</span>
+                    </div>
+                {% endif %}
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>新闻分类</th>
+                            <th>新闻数量</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in categories %}
+                            <tr data-pk="{{ category.pk }}" data-name="{{ category.name }}">
+                                <td>{{ category.name }}</td>
+                                <td>{{ category.news_set.count }}</td>
+                                <td>
+                                    {% if user.is_superuser %}
+                                        <button class="btn btn-danger delete-btn btn-xs">删除</button>
+                                        <button class="btn btn-primary edit-btn btn-xs">编辑</button>
+                                    {% else %}
+                                        <span class="btn btn-primary btn-xs">删除</span>
+                                        <span class="btn btn-primary btn-xs">编辑</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

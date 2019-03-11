@@ -1,0 +1,112 @@
+{% extends 'cms/base.html' %}
+
+{% block head %}
+    <script src="{% static 'js/staff_manage.min.js' %}"></script>
+    <script src="{% static 'js/addstaff.min.js' %}"></script>
+{% endblock %}
+
+{% block content-header %}
+    <h1>员工管理</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="col-md-3">员工姓名</th>
+                            <th class="col-md-3">员工手机</th>
+                            <th class="col-md-3">员工权限</th>
+                            <th class="col-md-3">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for staff in staffs %}
+                            <tr>
+                                <td>{{ staff.username }}</td>
+                                <td>{{ staff.telephone }}</td>
+                                <td>
+                                    {% if staff.is_superuser %}
+                                        <span>超级管理员</span>
+                                    {% else %}
+                                        {% for group in staff.groups.all %}
+                                            {{ group.name }}
+                                        {% endfor %}
+
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if user.is_superuser %}
+                                    <button class="btn btn-danger delete-btn btn-xs"
+                                            data-staff-telephone="{{ staff.telephone }}">删除
+                                    </button>
+                                        {% else %}
+                                        <span class="btn btn-primary">删除</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                {% if user.is_superuser %}
+                    <div class="box-footer">
+                        <h3>权限管理：</h3>
+                        <form action="" method="post">
+
+                            {% csrf_token %}
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="telephone-input">添加员工手机：</label>
+                                    <input type="text" class="form-control" name="telephone" placeholder="员工手机号">
+                                </div>
+                                <div class="form-group dropdown">
+                                    <label for="group-input">选择权限:</label>
+                                    <select name="group" id="group-input" class="form-control">
+                                        {% for group in groups %}
+                                            <option value="{{ group.id }}">{{ group.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button class="btn btn-primary pull-right" id="add-group-btn">确认添加</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    {% else %}
+                    <div class="box-footer">
+                        <h3>权限管理：</h3>
+                        <form action="" method="post">
+
+                            {% csrf_token %}
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="telephone-input">添加员工手机：</label>
+                                    <input type="text" class="form-control" name="telephone" placeholder="员工手机号">
+                                </div>
+                                <div class="form-group dropdown">
+                                    <label for="group-input">选择权限:</label>
+                                    <select name="group" id="group-input" class="form-control">
+                                        {% for group in groups %}
+                                            <option value="{{ group.id }}">{{ group.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                               <span class="btn btn-primary">确认添加</span>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

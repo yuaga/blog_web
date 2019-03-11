@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Bokebook |登录
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.min.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            var message = $('.message1');
+            if (message) {
+                setTimeout(function () {
+                    $('.message-box').hide();
+                }, 3000);
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="login-box">
+                <form action="" method="post" class="login-form">
+
+                    <div class="big-meaasge-box" style="height: 40px;width: 264px">
+                        {% if message %}
+                            <div class="message-box" style="height: 100%;border-radius: 3px;
+padding: 5px;cursor: pointer;box-sizing:border-box;text-align: center;font-size: 18px;">
+                                    <span class="message1" style="width: 100%;line-height: 30px">{{ message }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% csrf_token %}
+                    <p class="title">请登录</p>
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" placeholder="手机号码/telephone" name="telephone">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="密码/password" name="password">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="remember" value="1"> 记住我
+                        </label>
+                    </div>
+                    <input type="submit" class="login-btn" value="点我登录">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

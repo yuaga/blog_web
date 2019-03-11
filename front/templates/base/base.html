@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/body.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.min.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/ajax.min.js' %}"></script>
+    <script src="{% static 'js/alert.min.js' %}"></script>
+    <link rel="shortcut icon" href="#"/>
+    <title>{% block title %}
+    {% endblock %}</title>
+    {% block css %}{% endblock %}
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo-box">
+            <a href="/">Boke</a>
+        </div>
+        <ul class="nav">
+            <li><a href="/">Boke首页</a></li>
+            <li><a href="{% url 'news:personal_space' %}">个人博客</a></li>
+        </ul>
+        <div class="auth-box">
+            {% if user.is_authenticated %}
+
+                <a>{{ user.username }}</a> |
+                    <a href="{% url 'cms:index' %}">管理系统</a> |
+                <a href="{% url 'login:logout' %}">退出登录</a>
+            {% else %}
+                <a href="{% url 'login:login' %}">登录</a> ||
+                <a href="{% url 'login:register' %}">注册</a>
+            {% endif %}
+
+        </div>
+    </div>
+</header>
+
+{% block main %}{% endblock %}
+
+</body>
+</html>

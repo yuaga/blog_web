@@ -1,0 +1,137 @@
+@import "body.scss";
+@import "footer.scss";
+@import "header.scss";
+
+.main {
+  margin-top: 80px;
+  width: 100%;
+
+  .wrapper {
+    //background: darkorchid;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 1170px;
+
+    .news-wrapper {
+      background: white;
+      margin: 0 auto;
+      width: 800px;
+      padding: 20px;
+      box-sizing: border-box;
+
+      .news-box {
+        .news-title {
+          font-size: 30px;
+        }
+
+        .news-info {
+          overflow: hidden;
+          margin-top: 20px;
+          height: 40px;
+          line-height: 40px;
+          font-size: 16px;
+
+          .category {
+            float: left;
+            color: darkorchid;
+          }
+
+          .create-time {
+            margin-left: 20px;
+            margin-right: 5px;
+            float: right;
+          }
+
+          .author {
+            color: red;
+            float: right;
+          }
+        }
+
+        .news-detail {
+          margin-top: 40px;
+          line-height: 40px;
+        }
+      }
+
+      .comment-box {
+        width: 100%;
+        margin-top: 40px;
+        border-top: 1px solid #f2f2f2;
+        overflow: hidden;
+
+        .title {
+          margin-top: 20px;
+          color: #424242;
+        }
+
+        .comment {
+          margin-top: 10px;
+          width: 758px;
+          height: 80px;
+          resize: none;
+          border-radius: 2px;
+          font-size: 16px;
+          padding: 6px 10px;
+          box-sizing: border-box;
+        }
+
+        .submit-btn-group {
+          float: right;
+          margin-bottom: 10px;
+          margin-right: 2px;
+
+          .submit-btn {
+            border: none;
+            background: cornflowerblue;
+            color: white;
+            border-radius: 2px;
+            padding: 3px 6px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .comment-item {
+        margin-bottom: 20px;
+
+        li {
+          border-top: 1px solid #f2f2f2;
+          margin-top: 40px;
+          overflow: hidden;
+          padding-top: 10px;
+          .comment-title {
+            overflow: hidden;
+            height: 45px;
+            line-height: 45px;
+            font-size: 16px;
+
+            .img {
+              float: left;
+              width: 45px;
+              height: 45px;
+              border-radius: 50%;
+            }
+
+            .pub-time {
+              margin-left: 20px;
+              float: right;
+            }
+
+            .author {
+              color: red;
+              margin-left: 20px;
+              float: left;
+            }
+
+          }
+
+          .comment-content {
+            float: left;
+            margin-left: 65px;
+          }
+        }
+      }
+    }
+  }
+}

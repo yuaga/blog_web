@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+个人博客
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/autocar.min.css' %}">
+
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="news-box">
+                <ul class="news-list-group">
+                    {% for news in newses %}
+                        <li>
+                            <div class="photo-box">
+                                <img src="{{ news.thumbnail }}"
+                                     alt="">
+                            </div>
+                            <div class="news-detail">
+                                <p class="news-title"><a href="{% url 'news:news_detail' news_id=news.id %}">{{ news.title }}</a></p>
+                                <p class="news-content">{{ news.desc }}</p>
+                                <p class="more">
+                                    <span class="category">{{ news.category.name }}</span>
+                                    <span class="create-time">{{ news.pub_time }}</span>
+                                    <span class="author">{{ news.author.username }}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
