@@ -34,7 +34,7 @@
                         {% for category in categories %}
                             <tr data-pk="{{ category.pk }}" data-name="{{ category.name }}">
                                 <td>{{ category.name }}</td>
-                                <td>{{ category.news_set.count }}</td>
+                                <td>{{ category.num_count }}</td>
                                 <td>
                                     {% if user.is_superuser %}
                                         <button class="btn btn-danger delete-btn btn-xs">删除</button>

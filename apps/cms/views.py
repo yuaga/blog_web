@@ -14,6 +14,7 @@ from utils import restful
 from django.conf import settings
 import os
 from django.core.paginator import Paginator
+from django.db.models.aggregates import Count
 
 
 # cms管理主页
@@ -23,7 +24,7 @@ def cms_index(request):
 
 # cms新闻分类页面
 def cms_news_category(request):
-    categories = NewsCategory.objects.all()
+    categories = NewsCategory.objects.annotate(num_count=Count('news'))
     context = {
         'categories': categories
     }
